@@ -3,455 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>CAPTCHA das Fases · 20 Níveis de Semáforos</title>
+    <title>♾️ CAPTCHA INFINITO · 20 objetivos em loop ♾️</title>
     <style>
         * {
             box-sizing: border-box;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
-            background: radial-gradient(circle at 20% 30%, #1f3b2c, #0a1f1a);
+            background: radial-gradient(circle at 20% 25%, #1a3a2a, #0a1f18);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             font-family: 'Segoe UI', 'Courier New', monospace;
             padding: 20px;
             margin: 0;
         }
-
-        /* container principal */
         .game-container {
-            max-width: 650px;
+            max-width: 720px;
             width: 100%;
-            background: #fef0cf;
-            border-radius: 72px;
-            padding: 20px 20px 30px;
-            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 200, 0.8);
+            background: #fff6e5;
+            border-radius: 64px;
+            padding: 22px 22px 32px;
+            box-shadow: 0 30px 40px rgba(0,0,0,0.5), inset 0 1px 4px rgba(255,250,210,0.9);
             transition: 0.2s;
-        }
-
-        /* cabeçalho meta-humor */
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
         }
         h1 {
             font-size: 1.9rem;
-            margin: 0;
-            font-weight: 900;
-            background: linear-gradient(135deg, #3b5e2b, #d6a13e);
+            text-align: center;
+            margin: 0 0 6px;
+            background: linear-gradient(135deg, #2c6e2f, #dc9729);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 2px 2px 0 #fff6cf;
             letter-spacing: -1px;
         }
-        .sub {
-            font-size: 0.8rem;
-            background: #2b2b1f;
+        .infinity-badge {
+            text-align: center;
+            font-size: 0.7rem;
+            background: #1f2d1b;
             display: inline-block;
-            padding: 5px 15px;
+            width: auto;
+            margin: 0 auto 18px;
+            padding: 4px 20px;
             border-radius: 60px;
-            color: #fff0aa;
-            margin-top: 5px;
+            color: #ffeaac;
         }
-
-        /* info da fase */
-        .phase-info {
-            background: #293241;
+        .phase-stats {
+            background: #2c3a28;
             border-radius: 60px;
-            padding: 10px 18px;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
             flex-wrap: wrap;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px;
             margin-bottom: 25px;
-            color: #f9e0a0;
+            gap: 12px;
+            color: #ffec9f;
             font-weight: bold;
-            box-shadow: inset 0 1px 3px #5f6c8a, 0 6px 0 #141824;
+            box-shadow: inset 0 1px 2px #7b9a5e, 0 6px 0 #1f2e16;
         }
-        .phase-badge {
-            background: #f4c542;
-            padding: 5px 18px;
-            border-radius: 32px;
-            color: #2c2b1a;
-            font-size: 1.4rem;
-        }
-        .lights-progress {
-            background: #1f2538;
-            border-radius: 30px;
-            padding: 5px 14px;
-            font-family: monospace;
+        .phase-num {
+            background: #f3bc5c;
+            padding: 5px 20px;
+            border-radius: 40px;
+            color: #2d2a18;
             font-size: 1.2rem;
+        }
+        .target-show {
+            background: #2a2412;
+            padding: 5px 18px;
+            border-radius: 50px;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .progress-count {
+            background: #1a2c1c;
+            padding: 5px 14px;
+            border-radius: 40px;
         }
         .error-counter {
-            background: #623b2a;
-            border-radius: 30px;
+            background: #6e3e2c;
             padding: 5px 12px;
-            font-size: 0.9rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
         }
-
-        /* grade dos captchas (imagens emoji) */
-        .captcha-grid {
+        .grid-3x3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            gap: 18px;
             margin: 20px 0;
         }
-
-        .captcha-card {
-            background: #fff7e8;
+        .card {
+            background: #fff2dc;
             border-radius: 36px;
-            padding: 20px 8px;
+            padding: 18px 5px;
             text-align: center;
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             cursor: pointer;
-            transition: all 0.1s ease;
-            box-shadow: 0 8px 0 #b2946b;
-            border: 2px solid #ffe2a4;
+            transition: 0.07s linear;
+            box-shadow: 0 8px 0 #b68142;
+            border: 2px solid #ffdfaa;
             transform: translateY(-2px);
         }
-        .captcha-card:active {
+        .card:active {
             transform: translateY(4px);
-            box-shadow: 0 4px 0 #b2946b;
+            box-shadow: 0 3px 0 #b68142;
         }
-        /* semáforo já clicado */
-        .captcha-card.light-clicked {
-            background: #a7d489;
-            box-shadow: 0 3px 0 #508d2c;
+        .card.done {
+            background: #9ed47a;
+            box-shadow: 0 3px 0 #448a2c;
             transform: translateY(3px);
-            filter: grayscale(0.1);
-            cursor: default;
             opacity: 0.75;
+            cursor: default;
+            filter: grayscale(0.1);
         }
-        /* erro (shake) */
-        .captcha-card.wrong-pulse {
-            animation: shakeRobot 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-            background: #ffbc9b;
+        .card.wrong {
+            animation: shakeAngry 0.2s cubic-bezier(0.36,0.07,0.19,0.97) both;
+            background: #ffb595;
         }
-        @keyframes shakeRobot {
-            0% { transform: translateX(0) rotate(0deg); }
-            25% { transform: translateX(-6px) rotate(-1deg);}
-            75% { transform: translateX(6px) rotate(1deg);}
+        @keyframes shakeAngry {
+            0% { transform: translateX(0px); }
+            25% { transform: translateX(-7px) rotate(-1deg); }
+            75% { transform: translateX(7px) rotate(1deg); }
             100% { transform: translateX(0); }
         }
-
-        .message-area {
-            background: #f7e5c2;
-            border-radius: 50px;
-            padding: 12px;
-            text-align: center;
+        .message-panel {
+            background: #f4e5c2;
+            border-left: 8px solid #dc912e;
+            border-radius: 60px;
+            padding: 12px 16px;
+            margin: 20px 0 12px;
             font-weight: bold;
-            font-size: 0.9rem;
-            margin: 15px 0 10px;
-            color: #cc6b2c;
-            border-left: 8px solid #e09d32;
+            font-size: 0.85rem;
+            color: #bc6320;
             font-family: monospace;
+            text-align: center;
         }
-
         .reset-btn {
-            background: #c0713b;
+            background: #b66b37;
             width: 100%;
             border: none;
-            font-size: 1.2rem;
             font-weight: bold;
+            font-size: 1.2rem;
             padding: 12px;
             border-radius: 60px;
             color: white;
             font-family: monospace;
-            box-shadow: 0 5px 0 #69371c;
+            box-shadow: 0 5px 0 #63381b;
             cursor: pointer;
             transition: 0.05s linear;
-            margin-top: 8px;
+            margin-top: 10px;
         }
         .reset-btn:active {
             transform: translateY(2px);
-            box-shadow: 0 2px 0 #69371c;
+            box-shadow: 0 2px 0 #63381b;
         }
-
         footer {
             text-align: center;
-            font-size: 0.65rem;
-            margin-top: 20px;
-            color: #5f4c2b;
+            font-size: 0.6rem;
+            margin-top: 22px;
+            color: #7a623c;
         }
-
-        @media (max-width: 500px) {
-            .captcha-card { font-size: 2.4rem; padding: 14px 4px; }
-            .phase-badge { font-size: 1rem; }
-            .lights-progress { font-size: 0.9rem; }
+        @media (max-width: 550px) {
+            .card { font-size: 2.5rem; padding: 12px 0; }
+            .target-show { font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
 <div class="game-container">
-    <div class="header">
-        <h1>🚦 CAPTCHA INFINITO 🚥</h1>
-        <div class="sub">〣 20 fases · clique nos semáforos 〣</div>
+    <h1>♾️ CAPTCHA LOOP INFINITO</h1>
+    <div style="text-align:center;"><span class="infinity-badge">🔄 20 objetivos únicos · sempre recomeça com nova posição 🔄</span></div>
+
+    <div class="phase-stats">
+        <span class="phase-num" id="phaseDisplay">FASE 1 / 20</span>
+        <span class="target-show" id="targetDisplay">🎯 objetivo: 🚦</span>
+        <span class="progress-count" id="progressDisplay">✅ 0 / 3</span>
+        <span class="error-counter" id="errorDisplay">🤖 erros: 0</span>
     </div>
 
-    <div class="phase-info">
-        <span class="phase-badge" id="phaseNumberDisplay">FASE 1 / 20</span>
-        <span class="lights-progress" id="lightsCounter">🚦 0 / 3</span>
-        <span class="error-counter" id="errorCountDisplay">🤖 erros: 0</span>
+    <div id="captchaGrid" class="grid-3x3"></div>
+    <div id="gameMessage" class="message-panel">
+        🌟 Cada fase tem um ALVO específico. Clique nos 3 iguais! Após fase 20, recomeça da fase 1 com posições TROCADAS (infinito).
     </div>
-
-    <div id="captchaGrid" class="captcha-grid"></div>
-
-    <div id="gameMessage" class="message-area">
-        🌟 Clique em TODOS os semáforos (🚦 ou 🚥). Avance 20 fases e recomece com POSIÇÕES DIFERENTES!
-    </div>
-
-    <button id="resetGameBtn" class="reset-btn">🔄 REINICIAR VOLTA À FASE 1 (nova posição)</button>
-    <footer>🤡 meta-humor: cada ciclo as imagens dançam • 20 fases • volte à primeira com layout embaralhado</footer>
+    <button id="hardReset" class="reset-btn">🌀 REINICIAR VOLTA FASE 1 (novo posicionamento)</button>
+    <footer>🤖 meta-loop infinito: ao completar fase 20 → fase 1 com layout diferente. Nunca termina, humano!</footer>
 </div>
 
 <script>
-    // ======================== CONFIGURAÇÃO DO JOGO ========================
-    // Lista de ícones DISTRATORES (imagens que NÃO são semáforos)
-    const DISTRACTORS = [
-        "🚗", "🚕", "🚙", "🚌", "🚲", "🛵", "🚶", "🐕", "🐈", "📱", "💻", "🖨️", 
-        "🚛", "✈️", "⛵", "🏍️", "🚨", "🛑", "🚧", "🧩", "🤖", "👾", "📦", "🌵", "🍕"
+    // ---------- 20 OBJETIVOS DIFERENTES (figuras alvo) ----------
+    const TARGETS_BY_PHASE = [
+        { name: "Semáforos", emoji: "🚦", altEmoji: "🚥" },       // fase1
+        { name: "Gatos", emoji: "🐱", altEmoji: "🐈" },            // fase2
+        { name: "Cachorros", emoji: "🐶", altEmoji: "🐕" },        // fase3
+        { name: "Carros", emoji: "🚗", altEmoji: "🚙" },            // fase4
+        { name: "Aviões", emoji: "✈️", altEmoji: "🛩️" },           // fase5
+        { name: "Corujas", emoji: "🦉", altEmoji: "🦉" },           // fase6
+        { name: "Bicicletas", emoji: "🚲", altEmoji: "🚴" },        // fase7
+        { name: "Peixes", emoji: "🐟", altEmoji: "🐠" },            // fase8
+        { name: "Borboletas", emoji: "🦋", altEmoji: "🐛" },        // fase9
+        { name: "Corações", emoji: "❤️", altEmoji: "🧡" },          // fase10
+        { name: "Estrelas", emoji: "⭐", altEmoji: "🌟" },           // fase11
+        { name: "Árvores", emoji: "🌲", altEmoji: "🌳" },            // fase12
+        { name: "Sorvetes", emoji: "🍦", altEmoji: "🍨" },           // fase13
+        { name: "Trens", emoji: "🚂", altEmoji: "🚆" },              // fase14
+        { name: "Robôs", emoji: "🤖", altEmoji: "👾" },              // fase15
+        { name: "Cogumelos", emoji: "🍄", altEmoji: "🍄" },          // fase16
+        { name: "Abacaxis", emoji: "🍍", altEmoji: "🍍" },           // fase17
+        { name: "Navios", emoji: "⛵", altEmoji: "🚢" },             // fase18
+        { name: "Notas Musicais", emoji: "🎵", altEmoji: "🎶" },     // fase19
+        { name: "CAPTCHAS", emoji: "📷", altEmoji: "🔍" }            // fase20 (ironia)
     ];
-    
-    // Ícones válidos de semáforo
-    const TRAFFIC_LIGHTS = ["🚦", "🚥"];
-    
-    // Quantidade fixa de semáforos por fase (número de itens corretos)
-    const LIGHTS_PER_PHASE = 3;
-    const TOTAL_ITEMS_IN_GRID = 9;   // grade 3x3
-    
-    // Variáveis globais do jogo
-    let currentPhase = 1;            // 1..20
-    let currentItems = [];            // array de objetos { emoji, isLight, clicked }
-    let lightsClickedInPhase = 0;
-    let totalLightsInPhase = LIGHTS_PER_PHASE;
-    let errorCount = 0;               // contador de cliques errados (só por humor)
-    
-    // Elementos DOM
+
+    // banco gigante de distratores (itens que não serão o alvo da fase)
+    const DISTRACTOR_LIB = [
+        "🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐸","🐒","🐔","🐧","🐦","🐌","🐞","🐙","🌻","🌼","🍎","🍕",
+        "🍔","⚽","🏀","📱","💻","⌚","☕","❄️","🌈","🌙","⚡","🔥","💧","🎈","🔔","📚","✏️","💎","🧸",
+        "🚀","🛸","🧩","🎃","🥨","🥑","🥝","🍒","🥦","🧀","🍪","🎂","🏆","💀","👑","🐲","🦄","🐊","🦖"
+    ];
+
+    const GRID_TOTAL = 9;          // 3x3
+    const REQUIRED_PER_PHASE = 3;  // cada fase tem exatamente 3 itens do alvo
+
+    // estado do jogo
+    let currentPhase = 1;            // 1..20, depois volta pra 1 infinitamente
+    let gridItems = [];              // { emoji, isTarget, clicked }
+    let targetsFound = 0;
+    let totalTargetsInPhase = REQUIRED_PER_PHASE;
+    let errorCounter = 0;
+    let cycleCount = 0;              // apenas para humor, contar quantas voltas já deu (opcional)
+
+    // elementos DOM
     const gridContainer = document.getElementById("captchaGrid");
-    const phaseNumberSpan = document.getElementById("phaseNumberDisplay");
-    const lightsCounterSpan = document.getElementById("lightsCounter");
-    const errorCountSpan = document.getElementById("errorCountDisplay");
-    const gameMessageDiv = document.getElementById("gameMessage");
-    const resetBtn = document.getElementById("resetGameBtn");
-    
-    // ---------- FUNÇÃO AUXILIAR: EMBARALHAR (FISHER-YATES) ----------
-    function shuffleArray(arr) {
+    const phaseDisplaySpan = document.getElementById("phaseDisplay");
+    const targetDisplaySpan = document.getElementById("targetDisplay");
+    const progressSpan = document.getElementById("progressDisplay");
+    const errorSpan = document.getElementById("errorDisplay");
+    const messageBox = document.getElementById("gameMessage");
+
+    // --- helpers: embaralhador (Fisher-Yates) ---
+    function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
     }
-    
-    // ---------- GERAR UMA FASE (COM POSIÇÕES ALEATÓRIAS) ----------
-    // Garante exatamente LIGHTS_PER_PHASE semáforos e o restante distratores
-    // depois embaralha a ordem -> "diferença de posição" a cada chamada
-    function generatePhaseItems() {
-        const items = [];
-        // 1) adicionar semáforos
-        for (let i = 0; i < LIGHTS_PER_PHASE; i++) {
-            // alterna entre os dois tipos de semáforo para variedade
-            const lightEmoji = TRAFFIC_LIGHTS[i % TRAFFIC_LIGHTS.length];
-            items.push({
-                emoji: lightEmoji,
-                isLight: true,
-                clicked: false
-            });
-        }
-        // 2) adicionar distratores (total de itens - semáforos)
-        const distractorsNeeded = TOTAL_ITEMS_IN_GRID - LIGHTS_PER_PHASE;
-        for (let i = 0; i < distractorsNeeded; i++) {
-            const randomDistractor = DISTRACTORS[Math.floor(Math.random() * DISTRACTORS.length)];
-            items.push({
-                emoji: randomDistractor,
-                isLight: false,
-                clicked: false
-            });
-        }
-        // 3) EMBARALHAR TOTALMENTE -> garante "diferença de posição" a cada fase / reinício
-        return shuffleArray(items);
+
+    // Retorna a lista de emojis que são considerados "alvo" para a fase (pode ter 1 ou 2 variações)
+    function getTargetEmojiList(phase) {
+        const data = TARGETS_BY_PHASE[phase - 1];
+        if (!data) return ["🚦"];
+        const primary = data.emoji;
+        const secondary = data.altEmoji;
+        if (secondary && secondary !== primary) return [primary, secondary];
+        return [primary];
     }
-    
-    // ---------- ATUALIZAR INTERFACE (RENDERIZAR GRADE) ----------
-    function renderGrid() {
+
+    // Gera os itens da grade com base na fase atual (POSIÇÕES SEMPRE DIFERENTES)
+    function generateGridForPhase(phase) {
+        const targetVariants = getTargetEmojiList(phase);
+        // 1) criar os 3 itens alvo (podem alternar entre os emojis alvo permitidos)
+        let targetItems = [];
+        for (let i = 0; i < REQUIRED_PER_PHASE; i++) {
+            const chosen = targetVariants[i % targetVariants.length];
+            targetItems.push({
+                emoji: chosen,
+                isTarget: true,
+                clicked: false
+            });
+        }
+        // 2) criar distratores (garantindo que nenhum distrator seja igual a qualquer emoji alvo)
+        const bannedSet = new Set(targetVariants);
+        let validDistractors = DISTRACTOR_LIB.filter(d => !bannedSet.has(d));
+        if (validDistractors.length === 0) validDistractors = ["❌","⚠️","❓"]; // fallback
+        const neededDistractors = GRID_TOTAL - REQUIRED_PER_PHASE;
+        let distractorItems = [];
+        for (let i = 0; i < neededDistractors; i++) {
+            const randomPick = validDistractors[Math.floor(Math.random() * validDistractors.length)];
+            distractorItems.push({
+                emoji: randomPick,
+                isTarget: false,
+                clicked: false
+            });
+        }
+        const all = [...targetItems, ...distractorItems];
+        return shuffle(all);   // posicionamento aleatório -> garantia de diferença a cada geração
+    }
+
+    // atualizar interface (renderização completa)
+    function renderUI() {
         gridContainer.innerHTML = "";
-        for (let idx = 0; idx < currentItems.length; idx++) {
-            const item = currentItems[idx];
+        for (let idx = 0; idx < gridItems.length; idx++) {
+            const item = gridItems[idx];
             const card = document.createElement("div");
-            card.className = "captcha-card";
-            if (item.isLight && item.clicked) {
-                card.classList.add("light-clicked");
-            }
-            // exibe o emoji + microtexto (brincadeira)
-            card.innerHTML = `<div style="font-size: 3rem; line-height:1.2;">${item.emoji}</div>
-                              <div style="font-size: 0.65rem; opacity:0.7;">${item.isLight ? "🚦 semáforo" : "❌ distrator"}</div>`;
+            card.className = "card";
+            if (item.isTarget && item.clicked) card.classList.add("done");
+            card.innerHTML = `<div style="font-size: 2.8rem;">${item.emoji}</div>
+                              <div style="font-size: 0.6rem; margin-top: 5px;">${item.isTarget ? "🎯 alvo" : "🚫 distrator"}</div>`;
             card.addEventListener("click", (e) => {
                 e.stopPropagation();
-                handleCardClick(idx);
+                onCardClick(idx);
             });
             gridContainer.appendChild(card);
         }
-        // atualiza contadores de luzes e fase
-        lightsCounterSpan.innerHTML = `🚥 ${lightsClickedInPhase} / ${totalLightsInPhase}`;
-        phaseNumberSpan.innerHTML = `FASE ${currentPhase} / 20`;
-        errorCountSpan.innerHTML = `🤖 erros: ${errorCount}`;
+        // atualizar informações do cabeçalho
+        phaseDisplaySpan.innerText = `FASE ${currentPhase} / 20`;
+        const targetObj = TARGETS_BY_PHASE[currentPhase-1];
+        targetDisplaySpan.innerHTML = `🎯 objetivo: ${targetObj.name} ${targetObj.emoji}`;
+        progressSpan.innerText = `✅ ${targetsFound} / ${totalTargetsInPhase}`;
+        errorSpan.innerText = `🤖 erros: ${errorCounter}`;
     }
-    
-    // ---------- MENSAGEM COM HUMOR ----------
-    function setMessage(text, isError = false) {
-        gameMessageDiv.innerHTML = isError ? `⚠️ ${text} ⚠️` : `✨ ${text}`;
+
+    // mensagens com humor meta
+    function showMessage(text, isError = false) {
+        messageBox.innerHTML = isError ? `⚠️ ${text} ⚠️` : `✨ ${text}`;
         if (!isError) {
             setTimeout(() => {
-                if (gameMessageDiv.innerHTML.includes(text))
-                    gameMessageDiv.innerHTML = "🧠 clique nos semáforos! cada fase embaralha posições.";
-            }, 2000);
+                if (messageBox.innerHTML.includes(text))
+                    messageBox.innerHTML = "♾️ Loop infinito: após fase 20, volta com novo layout! Clique nos 3 alvos.";
+            }, 2200);
         } else {
-            // mensagem de erro some após 1.5s, mas mantém dica
             setTimeout(() => {
-                if (gameMessageDiv.innerHTML.includes("⚠️"))
-                    gameMessageDiv.innerHTML = "💡 Dica: só os semáforos (🚦 ou 🚥) valem. Avance 20 fases!";
+                if (messageBox.innerHTML.includes("⚠️"))
+                    messageBox.innerHTML = "💡 Dica: leia o objetivo acima. Clique SOMENTE nas figuras pedidas!";
             }, 1500);
         }
     }
-    
-    // ---------- AVANÇAR PARA PRÓXIMA FASE (OU CICLO COMPLETO) ----------
-    function advanceToNextPhase() {
+
+    // Avança para a próxima fase (respeitando loop infinito)
+    function goToNextPhase() {
         if (currentPhase < 20) {
             currentPhase++;
-            // gera nova fase com novos itens e posições aleatórias
             loadPhase(currentPhase);
-            setMessage(`✅ FASE ${currentPhase}! Novos semáforos apareceram em posições diferentes.`);
+            showMessage(`✅ AVANÇOU! FASE ${currentPhase}: alvo = ${TARGETS_BY_PHASE[currentPhase-1].name} ${TARGETS_BY_PHASE[currentPhase-1].emoji}`);
         } 
-        else if (currentPhase === 20) {
-            // COMPLETOU CICLO DE 20 FASES: volta para fase 1 com nova disposição
-            setMessage("🎉 PARABÉNS! Você completou 20 fases! Voltando à FASE 1 com posições TROCADAS! 🎉");
+        else { // currentPhase === 20 -> loop infinito: volta pra fase 1 com posições TROCADAS
             currentPhase = 1;
-            // gera fase 1 com layout totalmente novo (diferença de posição)
+            // Zeramos os erros a cada ciclo completo para frescor (opcional, mas dá sensação de recomeço)
+            errorCounter = 0;
+            // Incrementa contador de ciclos (apenas para exibição engraçada)
+            cycleCount++;
             loadPhase(currentPhase);
-            // mensagem extra
-            setTimeout(() => {
-                setMessage("🌀 FASE 1 RENOVADA: todos os ícones mudaram de lugar! Recomece o ciclo.");
-            }, 800);
+            showMessage(`🌀 LOOP INFINITO ATIVADO! Ciclo #${cycleCount} · FASE 1 com NOVAS POSIÇÕES! Objetivo: ${TARGETS_BY_PHASE[0].name} ${TARGETS_BY_PHASE[0].emoji} 🌀`);
         }
     }
-    
-    // ---------- CARREGAR UMA FASE ESPECÍFICA (GERA NOVO GRID) ----------
-    function loadPhase(phaseNumber) {
-        // gera novos itens (garantindo 3 semáforos, posições aleatórias)
-        currentItems = generatePhaseItems();
-        // reset dos contadores de clique desta fase
-        lightsClickedInPhase = 0;
-        totalLightsInPhase = LIGHTS_PER_PHASE;
-        // garantir que todos os itens têm clicked = false (já foi setado na geração)
-        for (let i = 0; i < currentItems.length; i++) {
-            currentItems[i].clicked = false;
+
+    // Carregar uma fase específica (zerar progresso e gerar novo grid com posicionamento aleatório)
+    function loadPhase(phase) {
+        gridItems = generateGridForPhase(phase);
+        targetsFound = 0;
+        totalTargetsInPhase = REQUIRED_PER_PHASE;
+        // garantir que nenhum item está marcado como clicked
+        for (let i = 0; i < gridItems.length; i++) {
+            gridItems[i].clicked = false;
         }
-        // renderiza
-        renderGrid();
-        // mensagem especial se fase 1 com reinício
-        if (phaseNumber === 1 && window._cycleResetJustHappened) {
-            // flag opcional
-        }
-        window._cycleResetJustHappened = false;
+        renderUI();
     }
-    
-    // ---------- TRATAR CLIQUE NOS CARDS ----------
-    function handleCardClick(clickedIndex) {
-        const item = currentItems[clickedIndex];
-        
-        // Se já clicou num semáforo correto e já está marcado, ignorar (não pode clicar de novo)
-        if (item.isLight && item.clicked) {
-            setMessage("Você já clicou nesse semáforo! Avance clicando nos outros.", false);
+
+    // Lógica de clique no card
+    function onCardClick(index) {
+        const item = gridItems[index];
+        // Se já clicou e é alvo (já coletado) -> aviso
+        if (item.isTarget && item.clicked) {
+            showMessage(`Você já pegou este ${item.emoji}! Faltam ${totalTargetsInPhase - targetsFound} alvo(s).`, false);
             return;
         }
-        
-        // Caso seja SEMÁFORO NÃO CLICADO AINDA
-        if (item.isLight && !item.clicked) {
-            // ACERTOU!
-            item.clicked = true;
-            lightsClickedInPhase++;
-            
-            // Atualiza visual do card
-            renderGrid();  // re-renderiza com a classe light-clicked no card correspondente
-            
-            // Verifica se completou todos os semáforos da fase
-            if (lightsClickedInPhase === totalLightsInPhase) {
-                // FASE COMPLETA!
-                setMessage(`🏆 FASE ${currentPhase} CONCLUÍDA! Avançando... 🏆`);
-                // Avança para próxima fase após pequeno delay (feedback)
-                setTimeout(() => {
-                    advanceToNextPhase();
-                }, 500);
-            } else {
-                setMessage(`✔️ Semáforo confirmado! Faltam ${totalLightsInPhase - lightsClickedInPhase} semáforo(s).`, false);
+        // Se NÃO é alvo -> ERRO (efeito visual)
+        if (!item.isTarget) {
+            errorCounter++;
+            errorSpan.innerText = `🤖 erros: ${errorCounter}`;
+            // efeito de tremor no card clicado
+            const cardsDom = document.querySelectorAll(".card");
+            if (cardsDom[index]) {
+                cardsDom[index].classList.add("wrong");
+                setTimeout(() => cardsDom[index].classList.remove("wrong"), 300);
             }
-        } 
-        else {
-            // CLIQUE EM DISTRATOR (ERRO)
-            errorCount++;
-            errorCountSpan.innerHTML = `🤖 erros: ${errorCount}`;
-            // adiciona efeito de tremor no card clicado errado
-            const cards = document.querySelectorAll(".captcha-card");
-            if (cards[clickedIndex]) {
-                cards[clickedIndex].classList.add("wrong-pulse");
-                setTimeout(() => {
-                    cards[clickedIndex].classList.remove("wrong-pulse");
-                }, 300);
-            }
-            // mensagem meta-humor
-            const wrongEmoji = item.emoji;
-            setMessage(`"${wrongEmoji}" NÃO é um semáforo! Robôs confundem. Tente novamente.`, true);
+            const targetName = TARGETS_BY_PHASE[currentPhase-1].name;
+            showMessage(`"${item.emoji}" NÃO é ${targetName}! Robô detectado. Tente novamente.`, true);
+            return;
         }
-        
-        // atualiza contador de luzes na interface (já no renderGrid, mas por segurança chama novamente)
-        lightsCounterSpan.innerHTML = `🚥 ${lightsClickedInPhase} / ${totalLightsInPhase}`;
-    }
-    
-    // ---------- RESET TOTAL DO JOGO (volta à fase 1, mas com posições DIFERENTES) ----------
-    function fullResetGame() {
-        // zera contador de erros (humor)
-        errorCount = 0;
-        currentPhase = 1;
-        // força geração de nova fase 1 com shuffle completo (posições sempre diferentes)
-        currentItems = generatePhaseItems();
-        lightsClickedInPhase = 0;
-        totalLightsInPhase = LIGHTS_PER_PHASE;
-        // garantir flags clicked = false
-        for (let i = 0; i < currentItems.length; i++) {
-            currentItems[i].clicked = false;
+        // ACERTOU (é alvo e ainda não foi clicado)
+        item.clicked = true;
+        targetsFound++;
+        renderUI();  // atualiza visual com estilo "done"
+        if (targetsFound === totalTargetsInPhase) {
+            // fase completa!
+            showMessage(`🎉 FASE ${currentPhase} CONCLUÍDA! Todos os ${TARGETS_BY_PHASE[currentPhase-1].name} encontrados. Avançando... 🎉`);
+            setTimeout(() => {
+                goToNextPhase();
+            }, 600);
+        } else {
+            showMessage(`✔️ Certo! +1 alvo. Faltam ${totalTargetsInPhase - targetsFound} ${TARGETS_BY_PHASE[currentPhase-1].name}.`, false);
         }
-        renderGrid();
-        errorCountSpan.innerHTML = `🤖 erros: 0`;
-        setMessage("🔄 JOGO REINICIADO! FASE 1 com nova disposição de ícones. Clique nos semáforos! 🔄");
-        // pequena dica visual
     }
-    
-    // ---------- INICIALIZAÇÃO DO JOGO ----------
-    function initGame() {
-        // gera primeira fase com posição aleatória (diferença garantida)
-        currentItems = generatePhaseItems();
-        lightsClickedInPhase = 0;
-        totalLightsInPhase = LIGHTS_PER_PHASE;
+
+    // Reset completo (volta à fase 1, zera ciclo, posição completamente nova)
+    function fullReset() {
         currentPhase = 1;
-        errorCount = 0;
-        renderGrid();
-        errorCountSpan.innerHTML = `🤖 erros: 0`;
-        setMessage("🚦 20 fases de CAPTCHA! Clique nos semáforos. Ao chegar na fase 20, volta pra 1 com posições novas!");
+        errorCounter = 0;
+        cycleCount = 0;
+        loadPhase(1);
+        showMessage("🔄 REINÍCIO TOTAL! FASE 1 com nova disposição. Loop infinito novamente.");
     }
-    
-    // evento do botão reset
-    resetBtn.addEventListener("click", () => {
-        fullResetGame();
-    });
-    
-    // Inicia o jogo
-    initGame();
+
+    // Inicialização
+    function init() {
+        currentPhase = 1;
+        errorCounter = 0;
+        cycleCount = 0;
+        loadPhase(1);
+        showMessage("🌟 20 objetivos diferentes! Complete a fase 20 e veja o loop infinito com posições trocadas.");
+    }
+
+    // eventos
+    document.getElementById("hardReset").addEventListener("click", () => fullReset());
+    init();
 </script>
 </body>
-  </html>
+</html>
